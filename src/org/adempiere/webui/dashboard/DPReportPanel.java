@@ -57,6 +57,8 @@ import org.zkoss.zul.Panelchildren;
 import org.zkoss.zul.Separator;
 import org.zkoss.zul.Toolbar;
 
+import za.ntier.models.MDashboardContent_New;
+
 public class DPReportPanel extends DashboardPanel implements EventListener<Event>{
 
 	private static final long serialVersionUID = 1L;
@@ -85,12 +87,7 @@ public class DPReportPanel extends DashboardPanel implements EventListener<Event
 			logger.log(Level.WARNING, "Failed to create dashboard content", e);
 		}
 	}
-
-
-
-
-
-
+	
 	private void initLayout() throws Exception {
 		Panel panel = new Panel();
 		//panel.setClass("fav-tree-panel");
@@ -99,7 +96,8 @@ public class DPReportPanel extends DashboardPanel implements EventListener<Event
 		MDashboardContent [] mDashBoardContents = MDashboardContent.getForSession(true,0,0);
 		for (MDashboardContent dashboardContent: mDashBoardContents) {
 			dashboardContentCurr = dashboardContent;
-			AD_Process_ID = dashboardContent.getAD_Process_ID();
+			MDashboardContent_New mDashboardContent_New = new MDashboardContent_New(Env.getCtx(), dashboardContent.getPA_DashboardContent_ID(), null);
+			AD_Process_ID = mDashboardContent_New.getAD_Process_Report_ID();
 			if(AD_Process_ID > 0)
 			{
 				boolean systemAccess = false;
@@ -198,15 +196,8 @@ public class DPReportPanel extends DashboardPanel implements EventListener<Event
 
 	@Override
 	public void refresh(ServerPushTemplate template)  {
-		//	performanceData = WPAPanel.loadGoal();
-		//usually, this should be call in non UI/Event listener thread (i.e Executions.getCurrent() should be null)
 		try {
-		//	refreshedData = generateReport(AD_Process_ID, dashboardContentCurr.getAD_PrintFormat_ID(), processParameters, parentComponent, contextPath);
-
-		//	iframe.setContent(refreshedData.getContent());
-		//	if(refreshedData.getRowCount() >= 0) {
-		//		rowCountLabel.setValue(Msg.getMsg(Env.getCtx(), "RowCount", new Object[] {refreshedData.getRowCount()}));
-		//	}
+		
 			this.template = new ServerPushTemplate(AEnv.getDesktop());
 			this.callback = new IServerPushCallback() {
 				@Override
@@ -227,13 +218,7 @@ public class DPReportPanel extends DashboardPanel implements EventListener<Event
 				}
 			};
 			template.executeAsync(callback);
-		//	if (Executions.getCurrent() != null) {
-		//		updateUI();			
-		//	} else {
-		//		template.executeAsync(this);
-		//	}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -246,7 +231,7 @@ public class DPReportPanel extends DashboardPanel implements EventListener<Event
 
 	@Override
 	public void onEvent(Event event) throws Exception {
-		// TODO Auto-generated method stub
+		
 
 	}
 
