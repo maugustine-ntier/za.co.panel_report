@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Panel_report
+Bundle-SymbolicName: za.co.panel_report
+Bundle-Version: 1.0.0.qualifier
+Fragment-Host: org.adempiere.ui.zk;bundle-version="12.0.0"
+Automatic-Module-Name: za.co.panel.report
+Bundle-ClassPath: zul/,
+ .
+Bundle-RequiredExecutionEnvironment: JavaSE-17
